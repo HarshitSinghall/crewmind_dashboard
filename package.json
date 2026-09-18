@@ -1,0 +1,33 @@
+{
+  "name": "crewmind-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test:ui": "node tests/ui-contract.mjs",
+    "test:fixture-safety": "node tests/fixture-safety-contract.mjs",
+    "test:tenancy": "node --env-file=.env.local tests/cross-tenant.mjs",
+    "test:smoke": "node --env-file=.env.local tests/smoke.mjs",
+    "test:perf": "node --env-file=.env.local tests/perf.mjs"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.45.4",
+    "next": "^15.5.24",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.2"
+  }
+}
