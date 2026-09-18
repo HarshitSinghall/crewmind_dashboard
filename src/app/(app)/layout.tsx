@@ -7,6 +7,7 @@ import { DemoBanner } from '@/components/ui'
 import { SignOut } from '@/components/SignOut'
 import { LiveRefresh } from '@/components/LiveRefresh'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { AdminOrgSwitcher } from '@/components/AdminOrgSwitcher'
 
 export const dynamic = 'force-dynamic'
 
@@ -15,9 +16,16 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: session } = await supabase.rpc('dashboard_session')
+  const [{ data: session }, { data: adminOrgs }] = await Promise.all([
+    supabase.rpc('dashboard_session'),
+    supabase.rpc('dashboard_admin_orgs'),
+  ])
   const org = session?.org
   const agent = session?.agent
+  const organisations = Array.isArray(adminOrgs)
+    ? adminOrgs.filter((item): item is { id: string; name: string } =>
+        typeof item?.id === 'string' && typeof item?.name === 'string')
+    : []
 
   if (!org) {
     return (
@@ -61,6 +69,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       </aside>
 
       <div className="min-w-0">
+        {organisations.length > 0 && (
+          <AdminOrgSwitcher orgs={organisations} selectedOrgId={org.id} />
+        )}
         {org.is_demo && <DemoBanner orgName={org.name} />}
         <header className="mobile-header print:hidden">
           <Link href="/" className="focusable flex items-center gap-2 min-w-0">

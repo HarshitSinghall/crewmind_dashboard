@@ -14,11 +14,16 @@ type CookieToSet = { name: string; value: string; options?: CookieOptions }
  */
 export async function createClient() {
   const cookieStore = await cookies()
+  const selectedOrg = cookieStore.get('cm-admin-org')?.value
+  const orgHeader = selectedOrg && /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(selectedOrg)
+    ? { 'x-crewmind-org-id': selectedOrg }
+    : {}
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      global: { headers: orgHeader },
       cookies: {
         getAll() {
           return cookieStore.getAll()

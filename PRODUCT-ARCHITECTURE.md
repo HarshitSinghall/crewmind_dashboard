@@ -6,6 +6,8 @@ The Next.js App Router application renders authenticated dashboard pages. Server
 
 Supabase provides authentication, Postgres RPCs, and tables. The application resolves the caller's organisation and agent through `dashboard_session`; it does not accept tenant IDs from write request bodies. Database row-level security is the final tenant boundary.
 
+Global administrators are listed in the private `app.global_admins` table. An unavailable owner agent row is created for each brokerage, including future brokerages. A global administrator chooses one brokerage at a time through an HTTP-only cookie; the server passes that ID in a Supabase request header. `app.current_org_id()` honors the header only for listed global administrators. Ordinary users keep the organisation from their signed Auth claim. All existing dashboard queries and RLS policies continue to see one selected brokerage per request.
+
 ## Important constraints
 
 - No service-role key is used by this application.

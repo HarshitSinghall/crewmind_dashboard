@@ -8,4 +8,6 @@ Crewmind serves brokerage owners and agents who need to see whether leads receiv
 
 Current capabilities include authenticated dashboard pages for overview, leads, speed, call quality, and ROI; lead contact and note recording; call-feedback capture; and owner-only ROI assumptions.
 
+Authorized global administrators can switch between brokerages and use the selected brokerage's owner dashboard. Each page shows one brokerage at a time.
+
 The application is an internal dashboard. It does not expose public search indexing, unauthenticated data access, or a service-role database client.

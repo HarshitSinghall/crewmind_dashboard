@@ -4,6 +4,7 @@
 
 - Initial Crewmind dashboard source is committed to the repository.
 - Product handoff documents describe the current verified application boundary.
+- Global administrator support is implemented with a brokerage selector and private database membership. Database role and tenant-boundary checks passed against both demo brokerages. Local typecheck, UI contract checks, fixture safety checks, and production build passed.
 - Run `npm run typecheck`, `npm run test:ui`, and `npm run test:fixture-safety` after dependency installation. Run integration suites only with explicitly configured disposable staging fixtures.
 
 ## Known interaction gaps (code review, 18 September 2026)
